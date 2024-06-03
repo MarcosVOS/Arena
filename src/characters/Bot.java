@@ -2,10 +2,18 @@ package characters;
 
 import java.util.Random;
 
+import points.GamePoints;
+
 public class Bot extends Player {
-        
-    public Bot(int sizeWidth, int sizeHeight){
+    private GamePoints[] contextOfPoints;
+    private int playerPositionOnTheXAxis;
+    private int playerPositionOnTheYAxis;
+
+    public Bot(int sizeWidth, int sizeHeight, GamePoints[] points, int playerAxisX, int playerAxisY){
         super(generatesXAxis(sizeWidth), generatesYAxis(sizeHeight));
+        contextOfPoints = points;
+        this.playerPositionOnTheXAxis = playerAxisX;
+        this.playerPositionOnTheYAxis = playerAxisY;
     }
 
     public static int generatesXAxis(int sizeWidth){

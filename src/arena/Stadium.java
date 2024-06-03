@@ -3,6 +3,7 @@ package arena;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import characters.Bot;
 import characters.Player;
 import utility.ResourceLoader;
 import java.awt.Graphics;
@@ -23,13 +24,15 @@ public class Stadium extends JPanel implements KeyListener {
     private Player player;
     private final int minimumNumberOfPoints = 40; 
     private final int maximumNumberOfPoints = 60; 
-    private GamePoints[] points;     
+    private GamePoints[] points;   
+    private Bot[] bots;  
 
     public Stadium() {
         this.resourceLoader = new ResourceLoader();
         this.player = new Player(100, 100);
         setupWindow();
-        genereate();
+        genereatePoints();
+        genereateBots();
     }
 
     private void setupWindow() {
@@ -45,12 +48,20 @@ public class Stadium extends JPanel implements KeyListener {
         this.window.setVisible(true);
     }
 
-    private void genereate(){
+    private void genereatePoints(){
         Random random = new Random();
         int quantity = random.nextInt((maximumNumberOfPoints - minimumNumberOfPoints) + 1) + minimumNumberOfPoints;
         points = new GamePoints[quantity];
         for(int item = 0; item < quantity; item++){
             points[item] = new GamePoints(SIZE_WIDTH,SIZE_HEIGHT);
+        }
+    }
+
+    private void genereateBots(){
+        int quantity = 5;
+        bots = new Bot[quantity];
+        for(int item = 0; item < quantity; item++){
+            bots[item] = new Bot(SIZE_WIDTH, SIZE_HEIGHT, points, player.getAxisX(), player.getAxisY());
         }
     }
 
@@ -61,6 +72,17 @@ public class Stadium extends JPanel implements KeyListener {
         for(int render = 0; render < points.length; render++){
             g.setColor(points[render].getColor());
             g.fillOval(points[render].getAxisX(), points[render].getAxisY(), 10, 10);
+        }
+
+
+        for(int render = 0; render < bots.length; render++){
+            g.setColor(Color.GRAY);
+            g.fillOval(
+                bots[render].getAxisX(), 
+                bots[render].getAxisY(),
+                bots[render].getCircleSize(),
+                bots[render].getCircleSize()
+            );
         }
 
         g.setColor(Color.BLACK);

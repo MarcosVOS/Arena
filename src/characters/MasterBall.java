@@ -54,8 +54,9 @@ public abstract class MasterBall {
     }
 
     private boolean checkCollisionsWithPoint(int pointInAxisX, int pointInAxisY){
-        double distance = Math.sqrt(Math.pow(this.getAxisX() - pointInAxisX, 2) + Math.pow(this.getAxisY() - pointInAxisY, 2));
-        return distance < this.getCircleSize();
+        double distance = Math.sqrt(Math.pow(this.axisX - pointInAxisX, 2) + Math.pow(this.axisY - pointInAxisY, 2));
+        double radiusSum = (this.circleSize / 2.0) + (10 / 2.0);
+        return distance <= radiusSum;
     }
 
     private GamePoints[] removePoint(GamePoints[] points, int indexToRemove){
