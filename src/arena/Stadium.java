@@ -41,7 +41,6 @@ public class Stadium extends JPanel implements KeyListener {
         this.window.setLocationRelativeTo(null);
         this.window.addKeyListener(this);
         this.window.setFocusTraversalKeysEnabled(false);
-
         this.window.add(this);
         this.window.setVisible(true);
     }
@@ -65,7 +64,7 @@ public class Stadium extends JPanel implements KeyListener {
         }
 
         g.setColor(Color.BLACK);
-        g.fillOval(player.getAxisX(), player.getAxisY(), 30, 30);
+        g.fillOval(player.getAxisX(), player.getAxisY(), player.getCircleSize(), player.getCircleSize());
 
     }
 
@@ -80,7 +79,7 @@ public class Stadium extends JPanel implements KeyListener {
                 player.setAxisY(player.getAxisY() + player.getSpeed());
                 break;
             case KeyEvent.VK_LEFT:
-                player.setAxisX(player.getAxisX() -player.getSpeed() );
+                player.setAxisX(player.getAxisX() - player.getSpeed() );
                 break;
             case KeyEvent.VK_RIGHT:
                 player.setAxisX(player.getAxisX() + player.getSpeed() );
@@ -88,6 +87,8 @@ public class Stadium extends JPanel implements KeyListener {
             default:
                 break;
         }
+
+        points = player.consumePoint(points);
         repaint();
     }
 
