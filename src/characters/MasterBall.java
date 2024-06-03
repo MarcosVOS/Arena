@@ -2,22 +2,22 @@ package characters;
 
 public abstract class MasterBall {
 
-    private int eixoX;
-    private int eixoY;
+    private int axisX;
+    private int axisY;
     private int circleSize = 10;
-    private int speed = 3;
+    private int speed = 6;
 
     public MasterBall(int eixoX, int eixoY){
-        this.eixoX = eixoX;
-        this.eixoY = eixoY;
+        this.axisX = eixoX;
+        this.axisY = eixoY;
     }
 
-    public int getEixoX(){
-        return this.eixoX;
+    public int getAxisX(){
+        return this.axisX;
     }
 
-    public int getEixoY(){
-        return this.eixoY;
+    public int getAxisY(){
+        return this.axisY;
     }
 
     public int getCircleSize(){
@@ -28,25 +28,22 @@ public abstract class MasterBall {
         return this.speed;
     }
 
-    public void setEixoX(int eixoX){
-        this.eixoX = eixoX;
+    public void setAxisX(int eixoX){
+        this.axisX = eixoX;
         return;
     }
-    public void setEixoY(int eixoY){
-        this.eixoY = eixoY;
+    public void setAxisY(int eixoY){
+        this.axisY = eixoY;
         return;
     }
 
     public void setEixoXeEixoY(int eixoX, int eixoY){
-        this.eixoX = eixoX;
-        this.eixoY = eixoY;
+        this.axisX = eixoX;
+        this.axisY = eixoY;
         return;
     }
 
     public void setCircleSize(int circleSize){
         this.circleSize = circleSize;
-    }
-
-    
-    
+    }    
 }

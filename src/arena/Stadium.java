@@ -65,7 +65,7 @@ public class Stadium extends JPanel implements KeyListener {
         }
 
         g.setColor(Color.BLACK);
-        g.fillOval(player.getEixoX(), player.getEixoY(), 30, 30);
+        g.fillOval(player.getAxisX(), player.getAxisY(), 30, 30);
 
     }
 
@@ -74,16 +74,16 @@ public class Stadium extends JPanel implements KeyListener {
         int pressedKey = k.getKeyCode();
         switch (pressedKey) {
             case KeyEvent.VK_UP:
-                player.setEixoY(player.getEixoY() - player.getSpeed());
+                player.setAxisY(player.getAxisY() - player.getSpeed());
                 break;
             case KeyEvent.VK_DOWN:
-                player.setEixoY(player.getEixoY() + player.getSpeed());
+                player.setAxisY(player.getAxisY() + player.getSpeed());
                 break;
             case KeyEvent.VK_LEFT:
-                player.setEixoX(player.getEixoX() -player.getSpeed() );
+                player.setAxisX(player.getAxisX() -player.getSpeed() );
                 break;
             case KeyEvent.VK_RIGHT:
-                player.setEixoX(player.getEixoX() + player.getSpeed() );
+                player.setAxisX(player.getAxisX() + player.getSpeed() );
                 break;
             default:
                 break;
