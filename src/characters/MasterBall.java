@@ -31,11 +31,26 @@ public abstract class MasterBall {
     }
 
     public void setAxisX(int eixoX){
-        this.axisX = eixoX;
+        if(eixoX < this.axisX && this.axisX > 4){
+            this.axisX = eixoX;
+        }else if(eixoX < this.axisX && eixoX <= 4 ){
+            this.axisX = 0;
+        }else if(eixoX > this.axisX && this.axisX < 1246){
+            this.axisX = eixoX;
+        }else if(eixoX > this.axisX && this.axisX >= 1246){
+            this.axisX = 1249;
+        }
         return;
     }
     public void setAxisY(int eixoY){
-        this.axisY = eixoY;
+
+        if(eixoY < this.axisY && this.axisY > 4){
+            this.axisY = eixoY;
+        }else if(eixoY < this.axisY && eixoY <= 4 ){
+            this.axisY = 0;
+        }else if(eixoY > this.axisY && eixoY < 652){
+            this.axisY = eixoY;
+        }
         return;
     }
 
