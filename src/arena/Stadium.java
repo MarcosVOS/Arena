@@ -54,9 +54,18 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
     }
 
     private void endGameWindow() {
-      this.window.setContentPane(new GameOverWindow(this.window, this.SIZE_WIDTH,this.SIZE_HEIGHT));
+      this.window.setContentPane(new GameOverWindow(this.window, this.SIZE_WIDTH,this.SIZE_HEIGHT, this));
       this.window.revalidate();
     }
+
+    public void reStartGame() {
+        this.player = new Player(100, 100);
+        setupWindow();
+        genereatePoints();
+        genereateBots();
+        startBotMoverTimer();
+        this.window.revalidate();
+      }
 
     public void stopGame(){
         timer.stop();

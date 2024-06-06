@@ -1,11 +1,14 @@
 package arena;
 
 import javax.swing.JPanel;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
 
 public class GameOverWindow extends JPanel{
@@ -36,7 +39,7 @@ public class GameOverWindow extends JPanel{
         "Se você acha que a grama do vizinho é mais verde, provavelmente é porque você não regou a sua."
     };
     
-    public GameOverWindow(JFrame window, int screenWidth, int screenHeight){
+    public GameOverWindow(JFrame window, int screenWidth, int screenHeight, Stadium game){
         
          JLabel gameOverMessage = new JLabel("Você perdeu");
          gameOverMessage.setForeground(Color.red);
@@ -61,13 +64,45 @@ public class GameOverWindow extends JPanel{
  
          sorryMessage.setBounds(xSorry, ySorry, sorrySize.width, sorrySize.height);
  
-         setLayout(null);
-         add(gameOverMessage);
-         add(sorryMessage);
+
+        JButton retryButton = new JButton("Recomeçar");
+        retryButton.setFont(new Font("Arial", Font.BOLD, 20));
+        Dimension retrySize = retryButton.getPreferredSize();
+        int xRetry = (screenWidth / 2) - retrySize.width - 10;
+        int yRetry = screenHeight - retrySize.height - 60;
+        retryButton.setBounds(xRetry, yRetry, retrySize.width, retrySize.height);
+        
+        retryButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               game.reStartGame();
+            }
+        });
+
+
+        JButton exitButton = new JButton("Sair");
+        exitButton.setFont(new Font("Arial", Font.BOLD, 20));
+        Dimension exitSize = exitButton.getPreferredSize();
+        int xExit = (screenWidth / 2) + 10;
+        int yExit = screenHeight - exitSize.height - 60;
+        exitButton.setBounds(xExit, yExit, exitSize.width, exitSize.height);
+
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        setLayout(null);
+        add(gameOverMessage);
+        add(sorryMessage);
+        add(retryButton);
+        add(exitButton);
  
-         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-         window.setSize(screenWidth, screenHeight);
-         window.setContentPane(this);
-         window.setVisible(true);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setSize(screenWidth, screenHeight);
+        window.setContentPane(this);
+        window.setVisible(true);
     }
 }
