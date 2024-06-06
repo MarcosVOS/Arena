@@ -86,7 +86,7 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
     }
 
     private void genereateBots(){
-        int quantity = 5;
+        int quantity = 4;
         bots = new Bot[quantity];
         for(int item = 0; item < quantity; item++){
             bots[item] = new Bot(SIZE_WIDTH, SIZE_HEIGHT, points, player.getAxisX(), player.getAxisY());
@@ -98,27 +98,28 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
         timer.start();
     }
 
-    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
+    
         for(int render = 0; render < points.length; render++){
             g.setColor(points[render].getColor());
-            g.fillOval(points[render].getAxisX(), points[render].getAxisY(), 10, 10);
+            g.fillOval(points[render].getAxisX() - 5, points[render].getAxisY() - 5, 10, 10);
         }
-
+    
         for(int render = 0; render < bots.length; render++){
             g.setColor(Color.GRAY);
             g.fillOval(
-                bots[render].getAxisX(), 
-                bots[render].getAxisY(),
+                bots[render].getAxisX() - bots[render].getCircleSize() / 2, 
+                bots[render].getAxisY() - bots[render].getCircleSize() / 2,
                 bots[render].getCircleSize(),
                 bots[render].getCircleSize()
             );
         }
-
+    
         g.setColor(Color.BLACK);
-        g.fillOval(player.getAxisX(), player.getAxisY(), player.getCircleSize(), player.getCircleSize());
+        g.fillOval(player.getAxisX() - player.getCircleSize() / 2, player.getAxisY() - player.getCircleSize() / 2, player.getCircleSize(), player.getCircleSize());
+        // g.setColor(Color.GREEN);
+        // g.fillOval(player.getAxisX() - 2, player.getAxisY() - 2, 4, 4);
     }
 
     @Override
@@ -162,20 +163,20 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
             winGameWindow();
         }
 
-        Random random = new Random();
-        for (Bot bot : bots) {
-            int deltaX = random.nextInt(3) - 1;
-            int deltaY = random.nextInt(3) - 1;
-            bot.setAxisX(bot.getAxisX() + deltaX * bot.getSpeed());
-            bot.setAxisY(bot.getAxisY() + deltaY * bot.getSpeed());
-            points = bot.consumePoint(points);
-            bots = bot.consumeBots(bots);
-            System.out.println(bot.consumePlayer(player));
-            if(bot.consumePlayer(player)){
-                stopGame();
-                endGameWindow();
-            }
-        }
+        // Random random = new Random();
+        // for (Bot bot : bots) {
+        //     int deltaX = random.nextInt(3) - 1;
+        //     int deltaY = random.nextInt(3) - 1;
+        //     bot.setAxisX(bot.getAxisX() + deltaX * bot.getSpeed());
+        //     bot.setAxisY(bot.getAxisY() + deltaY * bot.getSpeed());
+        //     points = bot.consumePoint(points);
+        //     bots = bot.consumeBots(bots);
+        //     System.out.println(bot.consumePlayer(player));
+        //     if(bot.consumePlayer(player)){
+        //         stopGame();
+        //         endGameWindow();
+        //     }
+        // }
         repaint();
     }
 }

@@ -74,6 +74,33 @@ public abstract class MasterBall {
         return distance <= radiusSum;
     }
 
+    private boolean checkCollisionsWithBot(Bot bot) {
+        System.out.println("\n\n PlayerX: " + this.axisX + " PlayerY: " + this.axisY + " CircleSize: " + this.getCircleSize());
+        System.out.println("\n\n botX: " + bot.getAxisX() + " botY: " + bot.getAxisY() + " CircleSize: " + bot.getCircleSize());
+    
+        // Calcular a distância entre os centros dos círculos
+        double distance = Math.sqrt(Math.pow(this.getAxisX() - bot.getAxisX(), 2) + Math.pow(this.getAxisY() - bot.getAxisY(), 2));
+        
+        // Obter os raios dos círculos
+        double playerRadius = this.getCircleSize() / 2.0;
+        double botRadius = bot.getCircleSize() / 2.0;
+        
+        // Calcular a soma dos raios
+        double sumOfRadii = playerRadius + botRadius;
+    
+        // Imprimir a distância e a soma dos raios
+        System.out.println("Distância: " + distance);
+        System.out.println("Soma dos Raios: " + sumOfRadii);
+    
+        // Verificar se a distância é menor ou igual à soma dos raios
+        boolean collision = distance <= sumOfRadii;
+    
+        System.out.println("Houve uma colisão: " + collision);
+        
+        return collision;
+    }
+    
+
     private GamePoints[] removePoint(GamePoints[] points, int indexToRemove){
         GamePoints[] filteredPoints = new GamePoints[points.length - 1];
         int j = 0;
@@ -109,7 +136,7 @@ public abstract class MasterBall {
     public Bot[] consumeBots(Bot[] bots){
         for (int i = 0; i < bots.length; i++) {
             if (
-                checkCollisionsWithPoint(bots[i].getAxisX(), bots[i].getAxisY()) && 
+                checkCollisionsWithBot(bots[i]) && 
                 circleSize > bots[i].getCircleSize()
             ) {
                 increasesTheSize(bots[i].getCircleSize());
