@@ -2,18 +2,21 @@ package arena;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.Timer;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.Color;
+import java.util.Random;
 
 import characters.Bot;
 import characters.Player;
-import utility.ResourceLoader;
-import java.awt.Graphics;
-import java.awt.event.KeyListener;
-import java.awt.event.KeyEvent;
-import java.awt.Color;
-import java.util.Random;
 import points.GamePoints;
+import utility.ResourceLoader;
 
-public class Stadium extends JPanel implements KeyListener {
+public class Stadium extends JPanel implements KeyListener, ActionListener {
 
     // ResourceLoader
     private final int SIZE_HEIGHT = 720;
@@ -26,6 +29,7 @@ public class Stadium extends JPanel implements KeyListener {
     private final int maximumNumberOfPoints = 60; 
     private GamePoints[] points;   
     private Bot[] bots;  
+    private Timer timer;
 
     public Stadium() {
         this.resourceLoader = new ResourceLoader();
@@ -33,6 +37,7 @@ public class Stadium extends JPanel implements KeyListener {
         setupWindow();
         genereatePoints();
         genereateBots();
+        startBotMoverTimer();
     }
 
     private void setupWindow() {
@@ -65,6 +70,11 @@ public class Stadium extends JPanel implements KeyListener {
         }
     }
 
+    private void startBotMoverTimer() {
+        timer = new Timer(1, this);
+        timer.start();
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -73,7 +83,6 @@ public class Stadium extends JPanel implements KeyListener {
             g.setColor(points[render].getColor());
             g.fillOval(points[render].getAxisX(), points[render].getAxisY(), 10, 10);
         }
-
 
         for(int render = 0; render < bots.length; render++){
             g.setColor(Color.GRAY);
@@ -87,7 +96,6 @@ public class Stadium extends JPanel implements KeyListener {
 
         g.setColor(Color.BLACK);
         g.fillOval(player.getAxisX(), player.getAxisY(), player.getCircleSize(), player.getCircleSize());
-
     }
 
     @Override
@@ -111,7 +119,8 @@ public class Stadium extends JPanel implements KeyListener {
         }
 
         points = player.consumePoint(points);
-        repaint();
+        bots = player.consumeBots(bots);
+        // repaint();
     }
 
     @Override
@@ -120,5 +129,18 @@ public class Stadium extends JPanel implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent k) {
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Random random = new Random();
+        for (Bot bot : bots) {
+            int deltaX = random.nextInt(3) - 1;
+            int deltaY = random.nextInt(3) - 1;
+            bot.setAxisX(bot.getAxisX() + deltaX * bot.getSpeed());
+            bot.setAxisY(bot.getAxisY() + deltaY * bot.getSpeed());
+            points = bot.consumePoint(points);
+        }
+        repaint();
     }
 }

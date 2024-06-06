@@ -85,6 +85,17 @@ public abstract class MasterBall {
         return filteredPoints;
     }
 
+    private Bot[] removeBot(Bot[] bots, int indexToRemove){
+        Bot[] filteredPoints = new Bot[bots.length - 1];
+        int j = 0;
+        for (int i = 0; i < bots.length; i++) {
+            if(i != indexToRemove){
+                filteredPoints[j++] = bots[i];
+            }
+        }
+        return filteredPoints;
+    }
+
     public GamePoints[] consumePoint(GamePoints[] points){
         for (int i = 0; i < points.length; i++) {
             if (checkCollisionsWithPoint(points[i].getAxisX(), points[i].getAxisY())) {
@@ -93,6 +104,19 @@ public abstract class MasterBall {
             }
         }
         return points;
+    }
+
+    public Bot[] consumeBots(Bot[] bots){
+        for (int i = 0; i < bots.length; i++) {
+            if (
+                checkCollisionsWithPoint(bots[i].getAxisX(), bots[i].getAxisY()) && 
+                circleSize > bots[i].getCircleSize()
+            ) {
+                increasesTheSize(bots[i].getCircleSize());
+                return removeBot(bots, i);
+            }
+        }
+        return bots;
     }
 
     public boolean checkCollisionsWithPlayer(){
