@@ -56,7 +56,10 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
     private void endGameWindow() {
       this.window.setContentPane(new GameOverWindow(this.window, this.SIZE_WIDTH,this.SIZE_HEIGHT));
       this.window.revalidate();
+    }
 
+    public void stopGame(){
+        timer.stop();
     }
 
     private void genereatePoints(){
@@ -150,6 +153,7 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
             System.out.println("Consume Player");
             System.out.println(bot.consumePlayer(player));
             if(bot.consumePlayer(player)){
+                stopGame();
                 endGameWindow();
             }
         }
