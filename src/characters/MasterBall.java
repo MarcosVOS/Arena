@@ -118,8 +118,4 @@ public abstract class MasterBall {
         }
         return bots;
     }
-
-    public boolean checkCollisionsWithPlayer(){
-        return true;
-    }
 }

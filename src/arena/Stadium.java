@@ -53,6 +53,12 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
         this.window.setVisible(true);
     }
 
+    private void endGameWindow() {
+      this.window.setContentPane(new GameOverWindow(this.window, this.SIZE_WIDTH,this.SIZE_HEIGHT));
+      this.window.revalidate();
+
+    }
+
     private void genereatePoints(){
         Random random = new Random();
         int quantity = random.nextInt((maximumNumberOfPoints - minimumNumberOfPoints) + 1) + minimumNumberOfPoints;
@@ -140,6 +146,12 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
             bot.setAxisX(bot.getAxisX() + deltaX * bot.getSpeed());
             bot.setAxisY(bot.getAxisY() + deltaY * bot.getSpeed());
             points = bot.consumePoint(points);
+            bots = bot.consumeBots(bots);
+            System.out.println("Consume Player");
+            System.out.println(bot.consumePlayer(player));
+            if(bot.consumePlayer(player)){
+                endGameWindow();
+            }
         }
         repaint();
     }

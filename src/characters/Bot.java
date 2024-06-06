@@ -25,4 +25,15 @@ public class Bot extends Player {
         Random random = new Random();
         return random.nextInt(sizeHeight - 10) + 1;
     }
+
+    private boolean checkCollisionsWithPoint(Player player){
+        double distance = Math.sqrt(Math.pow(super.getAxisX() - player.getAxisX(), 2) + Math.pow(super.getAxisY() -player.getAxisY(), 2));
+        double radiusSum = (super.getCircleSize() / 2.0) + (player.getCircleSize() / 2.0);
+        return distance <= radiusSum;
+    }
+
+
+    public boolean consumePlayer(Player player){
+        return checkCollisionsWithPoint(player) && super.getCircleSize() > player.getCircleSize(); 
+    }
 }
