@@ -1,6 +1,9 @@
 package arena;
 
 import javax.swing.JPanel;
+
+import utility.ResourceLoader;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -40,6 +43,7 @@ public class GameOverWindow extends JPanel{
     };
     
     public GameOverWindow(JFrame window, int screenWidth, int screenHeight, Stadium game){
+         ResourceLoader resourceLoader = new ResourceLoader();
         
          JLabel gameOverMessage = new JLabel("Você perdeu");
          gameOverMessage.setForeground(Color.red);
@@ -62,7 +66,13 @@ public class GameOverWindow extends JPanel{
          int xSorry = (screenWidth - sorrySize.width) / 2;
          int ySorry = yGameOver + gameOverSize.height + 10; 
  
-         sorryMessage.setBounds(xSorry, ySorry, sorrySize.width, sorrySize.height);
+        sorryMessage.setBounds(xSorry, ySorry, sorrySize.width, sorrySize.height);
+
+        JLabel loserImage = new JLabel(resourceLoader.getLoser());
+        Dimension loserSize = new Dimension(resourceLoader.getLoser().getIconWidth(), resourceLoader.getLoser().getIconHeight());
+        int xLoser = (screenWidth - loserSize.width) / 2;
+        int yLoser = 50;
+        loserImage.setBounds(xLoser, yLoser, loserSize.width, loserSize.height);
  
 
         JButton retryButton = new JButton("Recomeçar");
@@ -97,6 +107,7 @@ public class GameOverWindow extends JPanel{
         setLayout(null);
         add(gameOverMessage);
         add(sorryMessage);
+        add(loserImage); 
         add(retryButton);
         add(exitButton);
  
