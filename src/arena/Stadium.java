@@ -31,6 +31,7 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
     private GamePoints[] points;   
     private Bot[] bots;  
     private Timer timer;
+    private Boolean theGameStarted = false; 
 
     public Stadium() {
         this.window = new JFrame(NAME);
@@ -130,15 +131,19 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
         switch (pressedKey) {
             case KeyEvent.VK_UP:
                 player.setAxisY(player.getAxisY() - player.getSpeed());
+                theGameStarted = true;
                 break;
             case KeyEvent.VK_DOWN:
                 player.setAxisY(player.getAxisY() + player.getSpeed());
+                theGameStarted = true;
                 break;
             case KeyEvent.VK_LEFT:
                 player.setAxisX(player.getAxisX() - player.getSpeed() );
+                theGameStarted = true;
                 break;
             case KeyEvent.VK_RIGHT:
                 player.setAxisX(player.getAxisX() + player.getSpeed() );
+                theGameStarted = true;
                 break;
             default:
                 break;
@@ -165,20 +170,22 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
             winGameWindow();
         }
 
-        // Random random = new Random();
-        // for (Bot bot : bots) {
-        //     int deltaX = random.nextInt(3) - 1;
-        //     int deltaY = random.nextInt(3) - 1;
-        //     bot.setAxisX(bot.getAxisX() + deltaX * bot.getSpeed());
-        //     bot.setAxisY(bot.getAxisY() + deltaY * bot.getSpeed());
-        //     points = bot.consumePoint(points);
-        //     bots = bot.consumeBots(bots);
-        //     System.out.println(bot.consumePlayer(player));
-        //     if(bot.consumePlayer(player)){
-        //         stopGame();
-        //         endGameWindow();
-        //     }
-        // }
-        repaint();
+        if(theGameStarted){
+            Random random = new Random();
+            for (Bot bot : bots) {
+                int deltaX = random.nextInt(3) - 1;
+                int deltaY = random.nextInt(3) - 1;
+                bot.setAxisX(bot.getAxisX() + deltaX * bot.getSpeed());
+                bot.setAxisY(bot.getAxisY() + deltaY * bot.getSpeed());
+                points = bot.consumePoint(points);
+                bots = bot.consumeBots(bots);
+                System.out.println(bot.consumePlayer(player));
+                if(bot.consumePlayer(player)){
+                    stopGame();
+                    endGameWindow();
+                }
+            }
+            repaint();
+        }
     }
 }
