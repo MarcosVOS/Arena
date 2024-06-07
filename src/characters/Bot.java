@@ -4,7 +4,7 @@ import java.util.Random;
 
 import points.GamePoints;
 
-public class Bot extends Player {
+public class Bot extends MasterBall {
     private GamePoints[] contextOfPoints;
     private int playerPositionOnTheXAxis;
     private int playerPositionOnTheYAxis;
