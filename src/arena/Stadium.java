@@ -55,6 +55,7 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
         this.window.add(this);
         this.window.getContentPane().setPreferredSize(new Dimension(SIZE_WIDTH, SIZE_HEIGHT));
         this.window.pack();
+        this.window.setLocationRelativeTo(null); 
         this.window.setVisible(true);
     }
 
@@ -104,7 +105,7 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
     }
 
     private void genereateBots(){
-        int quantity = 4;
+        int quantity = 3;
         bots = new Bot[quantity];
         for(int item = 0; item < quantity; item++){
             bots[item] = new Bot(SIZE_WIDTH, SIZE_HEIGHT, points, player.getAxisX(), player.getAxisY());
