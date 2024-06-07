@@ -3,6 +3,7 @@ package arena;
 import javax.swing.JPanel;
 
 import utility.ResourceLoader;
+import utility.SoundPlayer;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -45,6 +46,9 @@ public class GameOverWindow extends JPanel{
     public GameOverWindow(JFrame window, int screenWidth, int screenHeight, Stadium game){
          ResourceLoader resourceLoader = new ResourceLoader();
         
+         SoundPlayer soundPlayer = new SoundPlayer();
+         soundPlayer.playSound(resourceLoader.getLoserSound());
+
          JLabel gameOverMessage = new JLabel("Você perdeu");
          gameOverMessage.setForeground(Color.red);
          gameOverMessage.setFont(new Font("Arial", Font.BOLD, 40)); 
@@ -85,6 +89,7 @@ public class GameOverWindow extends JPanel{
         retryButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                soundPlayer.stopSound();
                game.reStartGame();
             }
         });
@@ -115,5 +120,6 @@ public class GameOverWindow extends JPanel{
         window.setSize(screenWidth, screenHeight);
         window.setContentPane(this);
         window.setVisible(true);
+
     }
 }
