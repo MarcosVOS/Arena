@@ -189,13 +189,20 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
         if(theGameStarted){
             Random random = new Random();
             for (Bot bot : bots) {
-                int deltaX = random.nextInt(3) - 1;
-                int deltaY = random.nextInt(3) - 1;
-                bot.setAxisX(bot.getAxisX() + deltaX * bot.getSpeed());
-                bot.setAxisY(bot.getAxisY() + deltaY * bot.getSpeed());
+                int direction = random.nextInt(2); 
+                int deltaX = 0, deltaY = 0;
+                
+                if (direction == 0) {
+                    deltaX = random.nextInt(3) - 1;
+                } else {
+                    deltaY = random.nextInt(3) - 1; 
+                }
+        
+                bot.setAxisX(bot.getAxisX() + deltaX * bot.getSpeed() / 2); 
+                bot.setAxisY(bot.getAxisY() + deltaY * bot.getSpeed() / 2);
                 points = bot.consumePoint(points);
                 bots = bot.consumeBots(bots);
-                if(bot.consumePlayer(player)){
+                if (bot.consumePlayer(player)) {
                     stopGame();
                     endGameWindow();
                 }
