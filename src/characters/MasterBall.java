@@ -31,28 +31,29 @@ public abstract class MasterBall {
     }
 
     public void setAxisX(int eixoX){
-        if(eixoX < this.axisX && this.axisX > 4){
+        int radius = this.circleSize / 2;
+        if (eixoX - radius >= 0 && eixoX + radius <= 1280) {
             this.axisX = eixoX;
-        }else if(eixoX < this.axisX && eixoX <= 4 ){
-            this.axisX = 0;
-        }else if(eixoX > this.axisX && this.axisX < 1246){
-            this.axisX = eixoX;
-        }else if(eixoX > this.axisX && this.axisX >= 1246){
-            this.axisX = 1249;
+        } else if (eixoX - radius < 0) {
+            this.axisX = radius;
+        } else if (eixoX + radius > 1280) {
+            this.axisX = 1280 - radius;
         }
-        return;
     }
-    public void setAxisY(int eixoY){
 
-        if(eixoY < this.axisY && this.axisY > 4){
+    public void setAxisY(int eixoY) {
+        int radius = this.circleSize / 2;
+        int bottomLimit = 720 - radius;
+    
+        if (eixoY - radius >= 0 && eixoY + radius <= 720) {
             this.axisY = eixoY;
-        }else if(eixoY < this.axisY && eixoY <= 4 ){
-            this.axisY = 0;
-        }else if(eixoY > this.axisY && eixoY < 652){
-            this.axisY = eixoY;
+        } else if (eixoY - radius < 0) {
+            this.axisY = radius;
+        } else if (eixoY + radius > 720) {
+            this.axisY = bottomLimit;
         }
-        return;
     }
+    
 
     public void setEixoXeEixoY(int eixoX, int eixoY){
         this.axisX = eixoX;
@@ -75,8 +76,8 @@ public abstract class MasterBall {
     }
 
     private boolean checkCollisionsWithBot(Bot bot) {
-        System.out.println("\n\n PlayerX: " + this.axisX + " PlayerY: " + this.axisY + " CircleSize: " + this.getCircleSize());
-        System.out.println("\n\n botX: " + bot.getAxisX() + " botY: " + bot.getAxisY() + " CircleSize: " + bot.getCircleSize());
+        // System.out.println("\n\n PlayerX: " + this.axisX + " PlayerY: " + this.axisY + " CircleSize: " + this.getCircleSize());
+        // System.out.println("\n\n botX: " + bot.getAxisX() + " botY: " + bot.getAxisY() + " CircleSize: " + bot.getCircleSize());
     
         // Calcular a distância entre os centros dos círculos
         double distance = Math.sqrt(Math.pow(this.getAxisX() - bot.getAxisX(), 2) + Math.pow(this.getAxisY() - bot.getAxisY(), 2));
@@ -89,13 +90,13 @@ public abstract class MasterBall {
         double sumOfRadii = playerRadius + botRadius;
     
         // Imprimir a distância e a soma dos raios
-        System.out.println("Distância: " + distance);
-        System.out.println("Soma dos Raios: " + sumOfRadii);
+        // System.out.println("Distância: " + distance);
+        // System.out.println("Soma dos Raios: " + sumOfRadii);
     
         // Verificar se a distância é menor ou igual à soma dos raios
         boolean collision = distance <= sumOfRadii;
     
-        System.out.println("Houve uma colisão: " + collision);
+        // System.out.println("Houve uma colisão: " + collision);
         
         return collision;
     }

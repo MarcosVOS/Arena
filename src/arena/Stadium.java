@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.Random;
 
 import characters.Bot;
@@ -42,7 +43,6 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
 
     private void setupWindow() {
         this.window = new JFrame(NAME);
-        this.window.setSize(SIZE_WIDTH, SIZE_HEIGHT);
         this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.window.setResizable(false);
         this.window.setIconImage(resourceLoader.getPollo().getImage());
@@ -50,6 +50,8 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
         this.window.addKeyListener(this);
         this.window.setFocusTraversalKeysEnabled(false);
         this.window.add(this);
+        this.window.getContentPane().setPreferredSize(new Dimension(SIZE_WIDTH, SIZE_HEIGHT));
+        this.window.pack();
         this.window.setVisible(true);
     }
 
