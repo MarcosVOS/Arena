@@ -33,6 +33,7 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
     private Timer timer;
 
     public Stadium() {
+        this.window = new JFrame(NAME);
         this.resourceLoader = new ResourceLoader();
         this.player = new Player(100, 100);
         setupWindow();
@@ -42,7 +43,6 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
     }
 
     private void setupWindow() {
-        this.window = new JFrame(NAME);
         this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.window.setResizable(false);
         this.window.setIconImage(resourceLoader.getPollo().getImage());
