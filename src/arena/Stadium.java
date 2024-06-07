@@ -41,6 +41,9 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
         genereatePoints();
         genereateBots();
         startBotMoverTimer();
+        this.addKeyListener(this);
+        this.setFocusable(true);
+        this.requestFocusInWindow();
     }
 
     private void setupWindow() {
@@ -48,7 +51,6 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
         this.window.setResizable(false);
         this.window.setIconImage(resourceLoader.getPollo().getImage());
         this.window.setLocationRelativeTo(null);
-        this.window.addKeyListener(this);
         this.window.setFocusTraversalKeysEnabled(false);
         this.window.add(this);
         this.window.getContentPane().setPreferredSize(new Dimension(SIZE_WIDTH, SIZE_HEIGHT));
@@ -57,23 +59,36 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
     }
 
     private void endGameWindow() {
-      this.window.setContentPane(new GameOverWindow(this.window, this.SIZE_WIDTH,this.SIZE_HEIGHT, this));
-      this.window.revalidate();
-    }
-
-    private void winGameWindow() {
-        this.window.setContentPane(new WinGameWindow(this.window, this.SIZE_WIDTH,this.SIZE_HEIGHT, this));
+        stopGame();
+        this.window.setContentPane(new GameOverWindow(this.window, this.SIZE_WIDTH, this.SIZE_HEIGHT, this));
         this.window.revalidate();
-      }
+        this.window.requestFocusInWindow();  
+    }
+    
+    private void winGameWindow() {
+        stopGame();
+        this.window.setContentPane(new WinGameWindow(this.window, this.SIZE_WIDTH, this.SIZE_HEIGHT, this));
+        this.window.revalidate();
+        this.window.requestFocusInWindow();  
+    }
 
     public void reStartGame() {
         this.player = new Player(100, 100);
-        setupWindow();
+        this.theGameStarted = false; 
         genereatePoints();
         genereateBots();
         startBotMoverTimer();
+    
+        this.window.getContentPane().removeAll();
+        this.window.setContentPane(this);
+        
+        this.addKeyListener(this);
+        this.setFocusable(true);
+        this.requestFocusInWindow();
+        
         this.window.revalidate();
-      }
+        this.window.repaint();
+    }
 
     public void stopGame(){
         timer.stop();
@@ -179,7 +194,6 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
                 bot.setAxisY(bot.getAxisY() + deltaY * bot.getSpeed());
                 points = bot.consumePoint(points);
                 bots = bot.consumeBots(bots);
-                System.out.println(bot.consumePlayer(player));
                 if(bot.consumePlayer(player)){
                     stopGame();
                     endGameWindow();
