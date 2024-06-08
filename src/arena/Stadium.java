@@ -31,12 +31,11 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
     private GamePoints[] points;   
     private Bot[] bots;  
     private Timer timer;
-    private Boolean theGameStarted = false; 
 
     public Stadium() {
         this.window = new JFrame(NAME);
         this.resourceLoader = new ResourceLoader();
-        this.player = new Player(100, 100);
+        this.player = new Player();
         setupWindow();
         genereatePoints();
         genereateBots();
@@ -61,21 +60,20 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
 
     private void endGameWindow() {
         stopGame();
-        this.window.setContentPane(new GameOverWindow(this.window, this.SIZE_WIDTH, this.SIZE_HEIGHT, this));
+        this.window.setContentPane(new GameOverWindow(this));
         this.window.revalidate();
         this.window.requestFocusInWindow();  
     }
     
     private void winGameWindow() {
         stopGame();
-        this.window.setContentPane(new WinGameWindow(this.window, this.SIZE_WIDTH, this.SIZE_HEIGHT, this));
+        this.window.setContentPane(new WinGameWindow(this));
         this.window.revalidate();
         this.window.requestFocusInWindow();  
     }
 
     public void reStartGame() {
-        this.player = new Player(100, 100);
-        this.theGameStarted = false; 
+        this.player = new Player();
         genereatePoints();
         genereateBots();
         startBotMoverTimer();
@@ -95,12 +93,28 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
         timer.stop();
     }
 
+    public JFrame getWindow(){
+        return this.window;
+    }
+
+    public int getWidth(){
+        return this.SIZE_WIDTH;
+    }
+
+    public int getheight(){
+        return this.SIZE_HEIGHT;
+    }
+
+    public ResourceLoader getResourceLoader(){
+        return this.resourceLoader;
+    }
+
     private void genereatePoints(){
         Random random = new Random();
         int quantity = random.nextInt((maximumNumberOfPoints - minimumNumberOfPoints) + 1) + minimumNumberOfPoints;
         points = new GamePoints[quantity];
         for(int item = 0; item < quantity; item++){
-            points[item] = new GamePoints(SIZE_WIDTH,SIZE_HEIGHT);
+            points[item] = new GamePoints(this);
         }
     }
 
@@ -108,7 +122,7 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
         int quantity = 3;
         bots = new Bot[quantity];
         for(int item = 0; item < quantity; item++){
-            bots[item] = new Bot(SIZE_WIDTH, SIZE_HEIGHT, points, player.getAxisX(), player.getAxisY());
+            bots[item] = new Bot(this);
         }
     }
 
@@ -143,28 +157,8 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
 
     @Override
     public void keyPressed(KeyEvent k) {
-        int pressedKey = k.getKeyCode();
-        switch (pressedKey) {
-            case KeyEvent.VK_UP:
-                player.setAxisY(player.getAxisY() - player.getSpeed());
-                theGameStarted = true;
-                break;
-            case KeyEvent.VK_DOWN:
-                player.setAxisY(player.getAxisY() + player.getSpeed());
-                theGameStarted = true;
-                break;
-            case KeyEvent.VK_LEFT:
-                player.setAxisX(player.getAxisX() - player.getSpeed() );
-                theGameStarted = true;
-                break;
-            case KeyEvent.VK_RIGHT:
-                player.setAxisX(player.getAxisX() + player.getSpeed() );
-                theGameStarted = true;
-                break;
-            default:
-                break;
-        }
-
+       
+        player.movePlayer(k);
         points = player.consumePoint(points);
         bots = player.consumeBots(bots);
         // repaint();
@@ -186,7 +180,7 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
             winGameWindow();
         }
 
-        if(theGameStarted){
+        if(player.getTheGameStarted()){
             Random random = new Random();
             for (Bot bot : bots) {
                 int direction = random.nextInt(2); 
@@ -209,5 +203,9 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
             }
             repaint();
         }
+    }
+
+    public static void main(String[] args) {
+        new Stadium(); 
     }
 }

@@ -2,6 +2,7 @@ package points;
 
 import java.awt.Color;
 import java.util.Random;
+import arena.Stadium;
 
 public class GamePoints {
     private int axisX; 
@@ -16,9 +17,9 @@ public class GamePoints {
         Color.RED,
     };
 
-    public GamePoints(int sizeWidth, int sizeHeight){
-        this.axisX = generatesXAxis(sizeWidth);
-        this.axisY = generatesYAxis(sizeHeight);
+    public GamePoints(Stadium stadium){
+        this.axisX = generatesXAxis(stadium.getWidth());
+        this.axisY = generatesYAxis(stadium.getHeight());
         this.color = availableColors[generateARandomColor()];
     }
 

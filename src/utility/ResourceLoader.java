@@ -3,9 +3,9 @@ import javax.swing.ImageIcon;
 import java.io.File;
 
 public class ResourceLoader {
+    
     private ImageIcon pollo;
     private ImageIcon loser;
-    
     private File loserSound;
 
     public ResourceLoader(){

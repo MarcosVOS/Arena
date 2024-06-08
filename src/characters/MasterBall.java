@@ -9,9 +9,9 @@ public abstract class MasterBall {
     private int circleSize = 30;
     private int speed = 6;
 
-    public MasterBall(int eixoX, int eixoY){
-        this.axisX = eixoX;
-        this.axisY = eixoY;
+    public MasterBall(int axisX, int axisY){
+        this.axisX = axisX;
+        this.axisY = axisY;
     }
 
     public int getAxisX(){
@@ -55,9 +55,9 @@ public abstract class MasterBall {
     }
     
 
-    public void setEixoXeEixoY(int eixoX, int eixoY){
-        this.axisX = eixoX;
-        this.axisY = eixoY;
+    public void setsTheValueOfTheXAndYAxis(int axisX, int axisY){
+        setAxisX(axisX);
+        setAxisY(axisY);
         return;
     }
 
@@ -70,38 +70,26 @@ public abstract class MasterBall {
     }
 
     private boolean checkCollisionsWithPoint(int pointInAxisX, int pointInAxisY){
-        double distance = Math.sqrt(Math.pow(this.axisX - pointInAxisX, 2) + Math.pow(this.axisY - pointInAxisY, 2));
+        double distance = Math.sqrt(
+            Math.pow(this.axisX - pointInAxisX, 2) + 
+            Math.pow(this.axisY - pointInAxisY, 2)
+        );
         double radiusSum = (this.circleSize / 2.0) + (10 / 2.0);
         return distance <= radiusSum;
     }
 
     private boolean checkCollisionsWithBot(Bot bot) {
-        // System.out.println("\n\n PlayerX: " + this.axisX + " PlayerY: " + this.axisY + " CircleSize: " + this.getCircleSize());
-        // System.out.println("\n\n botX: " + bot.getAxisX() + " botY: " + bot.getAxisY() + " CircleSize: " + bot.getCircleSize());
-    
-        // Calcular a distância entre os centros dos círculos
-        double distance = Math.sqrt(Math.pow(this.getAxisX() - bot.getAxisX(), 2) + Math.pow(this.getAxisY() - bot.getAxisY(), 2));
-        
-        // Obter os raios dos círculos
+        double distance = Math.sqrt(Math.pow(
+            this.getAxisX() - bot.getAxisX(), 2) + 
+            Math.pow(this.getAxisY() - bot.getAxisY(), 2)
+        );
         double playerRadius = this.getCircleSize() / 2.0;
         double botRadius = bot.getCircleSize() / 2.0;
-        
-        // Calcular a soma dos raios
         double sumOfRadii = playerRadius + botRadius;
-    
-        // Imprimir a distância e a soma dos raios
-        // System.out.println("Distância: " + distance);
-        // System.out.println("Soma dos Raios: " + sumOfRadii);
-    
-        // Verificar se a distância é menor ou igual à soma dos raios
-        boolean collision = distance <= sumOfRadii;
-    
-        // System.out.println("Houve uma colisão: " + collision);
-        
+        boolean collision = distance <= sumOfRadii;        
         return collision;
     }
     
-
     private GamePoints[] removePoint(GamePoints[] points, int indexToRemove){
         GamePoints[] filteredPoints = new GamePoints[points.length - 1];
         int j = 0;
