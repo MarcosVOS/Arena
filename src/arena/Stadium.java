@@ -60,14 +60,14 @@ public class Stadium extends JPanel implements KeyListener, ActionListener {
 
     private void endGameWindow() {
         stopGame();
-        this.window.setContentPane(new GameOverWindow(this));
+        this.window.setContentPane(new GameOverView(this));
         this.window.revalidate();
         this.window.requestFocusInWindow();  
     }
     
     private void winGameWindow() {
         stopGame();
-        this.window.setContentPane(new WinGameWindow(this));
+        this.window.setContentPane(new WinGameView(this));
         this.window.revalidate();
         this.window.requestFocusInWindow();  
     }

@@ -9,9 +9,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-public class WinGameWindow extends JPanel{
+public class WinGameView extends JPanel{
     
-    public WinGameWindow(Stadium game){
+    public WinGameView(Stadium game){
         setupWinGameWindow(game);
     }
 
@@ -68,7 +68,7 @@ public class WinGameWindow extends JPanel{
         exitButton.setFont(new Font("Arial", Font.BOLD, 20));
         Dimension exitSize = exitButton.getPreferredSize();
         int xExit = (game.getWidth() / 2) + 10;
-        int yExit = game.getWidth() - exitSize.height - 60;
+        int yExit = game.getHeight() - exitSize.height - 60;
         exitButton.setBounds(xExit, yExit, exitSize.width, exitSize.height);
  
         exitButton.addActionListener(new ActionListener() {

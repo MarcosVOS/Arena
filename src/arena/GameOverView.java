@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
-public class GameOverWindow extends JPanel {
+public class GameOverView extends JPanel {
 
     private String[] motivationalPhrases = {
             "O sucesso é como um raio, raramente atinge o mesmo lugar duas vezes. Então, relaxe!",
@@ -40,7 +40,7 @@ public class GameOverWindow extends JPanel {
             "Se você acha que a grama do vizinho é mais verde, provavelmente é porque você não regou a sua."
     };
 
-    public GameOverWindow(Stadium game) {
+    public GameOverView(Stadium game) {
         setupGameOverWindow(game);
     }
 
