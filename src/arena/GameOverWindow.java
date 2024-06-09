@@ -1,7 +1,6 @@
 package arena;
 
 import javax.swing.JPanel;
-
 import utility.SoundPlayer;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -49,16 +48,16 @@ public class GameOverWindow extends JPanel {
         SoundPlayer soundPlayer = new SoundPlayer();
         soundPlayer.playSound(game.getResourceLoader().getLoserSound());
         
+        JLabel loserImage = createLoserImage(game);
         JLabel gameOverMessage = createLabelGameOver(game);
         JLabel motivationalPhrase = createLabelMotivationalPhrase(game);
-        JLabel loserImage = createLoserImage(game);
         JButton retryButton = createRetryButton(game, soundPlayer);
         JButton exitButton = createExitButton(game);
 
         setLayout(null);
+        add(loserImage);
         add(gameOverMessage);
         add(motivationalPhrase);
-        add(loserImage);
         add(retryButton);
         add(exitButton);
 
@@ -68,6 +67,16 @@ public class GameOverWindow extends JPanel {
         game.getWindow().setVisible(true);
     }
 
+    private JLabel createLoserImage(Stadium game){
+        JLabel loserImage = new JLabel(game.getResourceLoader().getLoser());
+        Dimension loserSize = new Dimension(game.getResourceLoader().getLoser().getIconWidth(),
+                game.getResourceLoader().getLoser().getIconHeight());
+        int xLoser = (game.getWidth() - loserSize.width) / 2;
+        int yLoser = 50;
+        loserImage.setBounds(xLoser, yLoser, loserSize.width, loserSize.height);
+        return loserImage;
+    }
+
     private JLabel createLabelGameOver(Stadium game){
         JLabel gameOverMessage = new JLabel("Você perdeu");
         gameOverMessage.setForeground(Color.red);
@@ -75,7 +84,7 @@ public class GameOverWindow extends JPanel {
 
         Dimension gameOverSize = gameOverMessage.getPreferredSize();
         int xGameOver = (game.getWidth() - gameOverSize.width) / 2;
-        int yGameOver = game.getHeight() / 5;
+        int yGameOver = 150 + game.getResourceLoader().getLoser().getIconHeight();
         gameOverMessage.setBounds(xGameOver, yGameOver, gameOverSize.width, gameOverSize.height);
 
         return gameOverMessage;
@@ -93,20 +102,10 @@ public class GameOverWindow extends JPanel {
 
         Dimension motivationalSize = motivationalPhrase.getPreferredSize();
         int xMotivational = (game.getWidth() - motivationalSize.width) / 2;
-        int yMotivational = game.getHeight() / 5 + 50;
+        int yMotivational = 200 + game.getResourceLoader().getLoser().getIconHeight();
         motivationalPhrase.setBounds(xMotivational, yMotivational, motivationalSize.width, motivationalSize.height);
 
         return motivationalPhrase;
-    }
-
-    private JLabel createLoserImage(Stadium game){
-        JLabel loserImage = new JLabel(game.getResourceLoader().getLoser());
-        Dimension loserSize = new Dimension(game.getResourceLoader().getLoser().getIconWidth(),
-                game.getResourceLoader().getLoser().getIconHeight());
-        int xLoser = (game.getWidth() - loserSize.width) / 2;
-        int yLoser = game.getHeight() / 5 + 100;
-        loserImage.setBounds(xLoser, yLoser, loserSize.width, loserSize.height);
-        return loserImage;
     }
 
     private JButton createRetryButton(Stadium game, SoundPlayer soundPlayer){
