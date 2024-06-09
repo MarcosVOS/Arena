@@ -120,7 +120,7 @@ public class GameOverView extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 soundPlayer.stopSound();
-                game.reStartGame();
+                game.getArenaView().reStartGame();
             }
         });
         return retryButton;

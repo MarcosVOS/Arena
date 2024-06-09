@@ -56,7 +56,7 @@ public class WinGameView extends JPanel{
         retryButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               game.reStartGame();
+               game.getArenaView().reStartGame();
             }
         });
 
