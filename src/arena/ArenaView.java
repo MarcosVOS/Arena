@@ -79,7 +79,7 @@ public class ArenaView extends JPanel implements KeyListener, ActionListener {
     }
 
     private void genereateBots(){
-        int quantity = 3;
+        int quantity = 5;
         bots = new Bot[quantity];
         for(int item = 0; item < quantity; item++){
             bots[item] = new Bot(this.window);
