@@ -119,7 +119,8 @@ public class ArenaView extends JPanel implements KeyListener, ActionListener {
 
     @Override
     public void keyPressed(KeyEvent k) {
-        player.movePlayer(k);
+        player.setLastKeyPressed(k);
+        player.move();
         points = player.consumePoint(points);
         bots = player.consumeBots(bots);
     }
@@ -140,19 +141,8 @@ public class ArenaView extends JPanel implements KeyListener, ActionListener {
         }
 
         if (player.getTheGameStarted()) {
-            Random random = new Random();
             for (Bot bot : bots) {
-                int direction = random.nextInt(2);
-                int deltaX = 0, deltaY = 0;
-
-                if (direction == 0) {
-                    deltaX = random.nextInt(3) - 1;
-                } else {
-                    deltaY = random.nextInt(3) - 1;
-                }
-
-                bot.setAxisX(bot.getAxisX() + deltaX * bot.getSpeed() / 2);
-                bot.setAxisY(bot.getAxisY() + deltaY * bot.getSpeed() / 2);
+                bot.move();
                 points = bot.consumePoint(points);
                 bots = bot.consumeBots(bots);
                 if (bot.consumePlayer(player)) {

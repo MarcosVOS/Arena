@@ -134,4 +134,7 @@ public abstract class MasterBall {
         }
         return bots;
     }
+
+    public void move(){
+    }
 }

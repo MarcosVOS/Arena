@@ -36,4 +36,19 @@ public class Bot extends MasterBall {
     public boolean consumePlayer(Player player){
         return checkCollisionsWithPlayer(player) && super.getCircleSize() > player.getCircleSize(); 
     }
+
+    @Override
+    public void move(){
+        Random random = new Random();
+        int direction = random.nextInt(2);
+        int deltaX = 0, deltaY = 0;
+
+        if (direction == 0) {
+            deltaX = random.nextInt(3) - 1;
+        } else {
+            deltaY = random.nextInt(3) - 1;
+        }
+        this.setAxisX(this.getAxisX() + deltaX * this.getSpeed() / 2);
+        this.setAxisY(this.getAxisY() + deltaY * this.getSpeed() / 2);
+    }
 }

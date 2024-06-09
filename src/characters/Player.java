@@ -7,6 +7,7 @@ import points.GamePoints;
 public class Player extends MasterBall {
 
    private Boolean theGameStarted;  
+   private KeyEvent keyPressed;
     
    public Player(){
         super(100, 100);
@@ -26,7 +27,13 @@ public class Player extends MasterBall {
       return points.length == 0 && bots.length == 0;
    }
 
-   public void movePlayer(KeyEvent keyPressed){
+   public void setLastKeyPressed(KeyEvent k){
+        this.keyPressed = k; 
+        return;
+   }
+
+   @Override
+   public void move(){
       int pressedKey = keyPressed.getKeyCode();
       switch (pressedKey) {
           case KeyEvent.VK_UP:
